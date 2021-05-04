@@ -20,12 +20,11 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productService.getProducts();
-    this.resetForm();
   }
 
   onSubmit(productForm: NgForm) {
     const key = this.productService.selectedProduct.$key;
+
     if(key == undefined){
       this.productService.insertProduct(productForm.value);
     }else{
@@ -36,11 +35,9 @@ export class ProductComponent implements OnInit {
     this.toastr.success('Saved!');
   }
   
-  resetForm(productForm?: NgForm) {
-    if(productForm != null){
-      productForm.reset();
-      this.productService.selectedProduct = new Product();
-    }
+  resetForm(productForm: NgForm) {
+    productForm.reset();
+    this.productService.selectedProduct = new Product();
   }
 
 }

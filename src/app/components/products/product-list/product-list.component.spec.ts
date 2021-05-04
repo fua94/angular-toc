@@ -1,4 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { Product } from 'src/app/models/product';
+import { ProductService } from 'src/app/services/product.service';
+import { environment } from 'src/environments/environment';
 
 import { ProductListComponent } from './product-list.component';
 
@@ -8,7 +13,14 @@ describe('ProductListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductListComponent ]
+      declarations: [ ProductListComponent ],
+      providers: [
+        ProductService
+      ],
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule
+      ],
     })
     .compileComponents();
   });
@@ -19,7 +31,15 @@ describe('ProductListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('#populateList should populate list of products', () => {
+    const list = component.populateList();
+
+    if(list.length){
+      expect(typeof list[0]).toHaveProperty('$key');
+      expect(typeof list[0]).toHaveProperty('name');
+      expect(typeof list[0]).toHaveProperty('price');
+    }else{
+      expect(list).toBeTruthy();
+    }
   });
 });
