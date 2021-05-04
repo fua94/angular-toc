@@ -13,17 +13,23 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
-    this.productService
-      .getProducts()
+    this.productList = this.populateList();
+  }
+
+  populateList(): Product[] {
+    let auxProductList: Product[] = [];
+
+    this.productService.getProducts()
       .snapshotChanges()
-      .subscribe((item) => {
-        this.productList = [];
-        item.forEach((element) => {
+      .subscribe(item => {
+        item.forEach(element => {
           const x = element.payload.toJSON();
           x['$key'] = element.key;
-          this.productList.push(x as Product);
+          auxProductList.push(x as Product);
         });
       });
+
+      return auxProductList;
   }
 
   // onEdit(product: Product){
