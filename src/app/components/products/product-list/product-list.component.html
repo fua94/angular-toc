@@ -12,15 +12,19 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of productList">
-        <td>{{product.name}}</td>
-        <td>{{product.price}}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
         <td>
-            <a href="#" class="btn btn-sm btn-primary" (click)="onEdit(product)">
+          <!-- <a href="#" class="btn btn-sm btn-primary" (click)="onEdit(product)">
               <i class="fas fa-edit"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-danger mx-2" (click)="onDelete(product)">
-              <i class="fas fa-trash-alt"></i>
-            </a>
+            </a> -->
+          <a
+            href="#"
+            class="btn btn-sm btn-danger mx-2"
+            (click)="onDelete(product.$key)"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </a>
         </td>
       </tr>
     </tbody>
