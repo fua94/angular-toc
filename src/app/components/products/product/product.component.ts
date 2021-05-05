@@ -24,22 +24,26 @@ export class ProductComponent implements OnInit {
   }
 
   onSubmit(productForm: NgForm) {
-    const key = this.productService.getActualProduct().$key;
+    const product = productForm.value;
 
-    if(key){
-      this.productService.updateProduct({$key: key, ...productForm.value});
+    if(product.name && product.price){
+      const key = this.productService.getActualProduct().$key;
+      
+      if(key){
+        this.productService.updateProduct({$key: key, ...productForm.value});
+      }else{
+        this.productService.insertProduct(productForm.value);
+      }
+  
+      this.resetForm(productForm);
+      this.toastr.success('Saved!');
     }else{
-      this.productService.insertProduct(productForm.value);
+      this.toastr.error('Empty values...');
     }
-
-    this.resetForm(productForm);
-    this.toastr.success('Saved!');
   }
 
   resetForm(productForm: NgForm) {
-    if(productForm != null){
-      productForm.reset();
-      this.productService.setActualProduct(new Product());
-    }
+    productForm.reset();
+    this.productService.setActualProduct(new Product());
   }
 }

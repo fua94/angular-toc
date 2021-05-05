@@ -7,7 +7,7 @@
     <div class="navbar-nav float-right">
       <a class="nav-link disabled text-light" href="#" tabindex="-1" aria-disabled="true">
         Seleccionado:
-        <strong>{{(selectedProduct$ | async).name}}</strong>
+        <strong>{{(selectedProduct$ | async).name || 'Ninguno'}}</strong>
       </a>
     </div>
   </div>
