@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
-import { Product, createProduct } from './product.model';
+import { Product } from 'src/app/models/product';
 
-export interface ProductsState extends EntityState<Product> {}
+
+export interface ProductState extends EntityState<Product> {
+  productSelected: Product;
+  dataLoaded: boolean;
+}
+
+export function createInitialState(): ProductState {
+  return {
+    productSelected: new Product(),
+    dataLoaded: false
+  };
+}
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'products' })
-export class ProductsStore extends EntityStore<ProductsState> {
+@StoreConfig({ name: 'product' })
+export class ProductStore extends EntityStore<ProductState> {
   constructor() {
-    super(createProduct({ $key: '', name: '', price: 0 }));
-  }
-
-  setName(name: string) {
-    this.update({ name });
-  }
-  setPrice(price: string) {
-    this.update({ price });
+    super(createInitialState());
   }
 }

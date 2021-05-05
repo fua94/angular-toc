@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 // service
 import { ProductService } from '../../../services/product.service';
-import { ProductsService } from '../state/products.service';
-import { ProductsQuery } from '../state/products.query';
 
 import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product',
@@ -14,48 +13,33 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-  name$: Observable<string>;
-  price$: Observable<number>;
 
   constructor(
     public productService: ProductService,
-    private toastr: ToastrService,
-    private products: ProductsQuery,
-    public productsService: ProductsService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.name$ = this.products.getName$;
-    this.price$ = this.products.getPrice$;
     this.productService.getProducts();
   }
 
-  onSubmit() {
-    let name = '';
-    let price = 0;
-    this.name$.subscribe((e) => {
-      name = e;
-    });
-    this.price$.subscribe((e) => {
-      price = e;
-    });
+  onSubmit(productForm: NgForm) {
+    const key = this.productService.getActualProduct().$key;
 
-    // const key = this.productService.selectedProduct.$key;
-    // if (key == undefined) {
-
-    if (name != '' && price != 0) {
-      this.productsService.insertProduct(name, price);
-      this.resetForm();
-      // this.toastr.success('Saved!');
+    if(key){
+      this.productService.updateProduct({$key: key, ...productForm.value});
+    }else{
+      this.productService.insertProduct(productForm.value);
     }
 
-    // } else {
-    //   this.productService.updateProduct({ $key: key, ...productForm.value });
-    // }
+    this.resetForm(productForm);
+    this.toastr.success('Saved!');
   }
 
-  resetForm() {
-    this.productsService.setName('');
-    this.productsService.setPrice(0);
+  resetForm(productForm: NgForm) {
+    if(productForm != null){
+      productForm.reset();
+      this.productService.setActualProduct(new Product());
+    }
   }
 }

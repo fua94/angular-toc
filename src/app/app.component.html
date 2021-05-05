@@ -1,7 +1,16 @@
 <nav class="navbar navbar-dark bg-dark">
-  <a href="/" class="navbar-brand">
-    NgProducts
-  </a>
+  <div class="container-fluid">
+    <a href="/" class="navbar-brand">
+      NgProducts
+    </a>
+
+    <div class="navbar-nav float-right">
+      <a class="nav-link disabled text-light" href="#" tabindex="-1" aria-disabled="true">
+        Seleccionado:
+        <strong>{{(selectedProduct$ | async).name}}</strong>
+      </a>
+    </div>
+  </div>
 </nav>
 
 <app-products></app-products>

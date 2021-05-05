@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { ProductsService } from '../state/products.service';
+import { ProductService } from 'src/app/services/product.service';
+import { ProductStore } from '../state/products.store';
 
 @Component({
   selector: 'app-product-list',
@@ -10,33 +11,32 @@ import { ProductsService } from '../state/products.service';
 export class ProductListComponent implements OnInit {
   productList: Product[];
 
-  constructor(private productService: ProductsService) {}
+  constructor(
+    private productService: ProductService,
+    private store: ProductStore
+  ) {}
 
   ngOnInit(): void {
-    this.productList = this.populateList();
-  }
-
-  populateList(): Product[] {
-    let auxProductList: Product[] = [];
-
     this.productService.getProducts()
       .snapshotChanges()
       .subscribe(item => {
+        this.productList = [];
         item.forEach(element => {
           const x = element.payload.toJSON();
           x['$key'] = element.key;
-          auxProductList.push(x as Product);
+          this.productList.push(x as Product);
         });
       });
-
-      return auxProductList;
   }
 
-  // onEdit(product: Product){
-  //   this.productService.selectedProduct = Object.assign({}, product);
-  // }
+  onEdit(product: Product){
+    this.productService.setActualProduct(Object.assign({}, product));
+  }
 
-  onDelete(key) {
-    this.productService.deleteProduct(key);
+  onDelete(product: Product) {
+    if(confirm('Borrar?')){
+      this.productService.deleteProduct(product);
+      this.productService.setActualProduct(new Product());
+    }
   }
 }

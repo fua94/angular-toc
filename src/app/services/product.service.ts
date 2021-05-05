@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { ProductQuery } from '../components/products/state/products.query';
+import { ProductStore } from '../components/products/state/products.store';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -7,12 +10,26 @@ import { Product } from '../models/product';
 })
 export class ProductService {
   productList: AngularFireList<any>;
-  selectedProduct: Product = new Product();
+  productSelected$: Observable<Product>;
 
-  constructor(private firebase: AngularFireDatabase) {}
+  constructor(
+    private firebase: AngularFireDatabase,
+    private productStore: ProductStore,
+    private productQuery: ProductQuery
+  ) {
+    this.productSelected$ = this.productQuery.getProductSelected$;
+  }
+
+  setActualProduct(product: Product){
+    this.productStore.update({productSelected: product});
+  }
+
+  getActualProduct(): Product{
+    return this.productQuery.getValue().productSelected;
+  }
 
   getProducts() {
-    return (this.productList = this.firebase.list('product'));
+    return this.productList = this.firebase.list('product');
   }
 
   insertProduct(product: Product) {

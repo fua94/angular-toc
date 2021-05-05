@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Product } from './models/product';
+import { ProductService } from './services/product.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-crud-firebase';
+  selectedProduct$: Observable<Product>;
+
+  constructor(
+    public productService: ProductService
+  ) {
+    this.selectedProduct$ = productService.productSelected$;
+  }
 }
