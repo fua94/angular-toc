@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { ProductQuery } from '../components/products/state/products.query';
-import { ProductStore } from '../components/products/state/products.store';
 import { Product } from '../models/product';
+import { ProductQuery } from '../state/products.query';
+import { ProductStore } from '../state/products.store';
 
 @Injectable({
   providedIn: 'root',

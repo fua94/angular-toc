@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { Product } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/product.service';
 import { environment } from 'src/environments/environment';
+import { ProductService } from '../../services/product.service';
 
 import { ProductListComponent } from './product-list.component';
 

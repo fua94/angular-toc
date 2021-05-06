@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-// service
-import { ProductService } from '../../../services/product.service';
-
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import { Product } from 'src/app/models/product';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
+  styleUrls: [],
 })
 export class ProductComponent implements OnInit {
 

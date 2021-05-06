@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
-import { Product } from 'src/app/models/product';
-
+import { Product } from '../models/product';
 
 export interface ProductState extends EntityState<Product> {
   productSelected: Product;

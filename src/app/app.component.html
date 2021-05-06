@@ -1,16 +1,4 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a href="/" class="navbar-brand">
-      NgProducts
-    </a>
-
-    <div class="navbar-nav float-right">
-      <a class="nav-link disabled text-light" href="#" tabindex="-1" aria-disabled="true">
-        Seleccionado:
-        <strong>{{(selectedProduct$ | async).name || 'Ninguno'}}</strong>
-      </a>
-    </div>
-  </div>
-</nav>
-
-<app-products></app-products>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
