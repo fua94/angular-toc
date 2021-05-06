@@ -24,8 +24,7 @@ export class AuthService {
         this.user = user;
 
         this.authStore.update({user: {
-          email: user.email,
-          password: ''
+          email: user.email
         }});
       }
     });

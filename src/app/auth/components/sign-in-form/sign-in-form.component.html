@@ -1,7 +1,7 @@
 <div class="card" style="width: 33.33vw">
   <div class="card-body">
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-      <h3>Signin</h3>
+      <h3>Ingresar</h3>
       <div class="form-group">
         <input 
           type="email" 
@@ -26,8 +26,6 @@
 
       <div class="form-group">
         <input type="submit" class="btn btn-primary btn-block" value="Sign in">
-        <br>
-        <a href="#" (click)="logOut()">Logout</a>
       </div>
     </form>
   </div>

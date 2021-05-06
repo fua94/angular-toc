@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './sign-in-form.component.html',
   styleUrls: []
 })
-export class SignInFormComponent implements OnInit {
+export class SignInFormComponent {
   actualUser: User = new User();
 
   constructor(
@@ -18,9 +18,6 @@ export class SignInFormComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   async onSubmit(ngForm: NgForm){
     try{
@@ -35,13 +32,4 @@ export class SignInFormComponent implements OnInit {
       console.error('#sign-in onSumit', error);
     }
   }
-
-  async logOut(){
-    try{
-      this.authService.signOut();
-    }catch(error){
-      console.error('#sign-in logOut', error);
-    }
-  }
-
 }
