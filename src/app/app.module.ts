@@ -22,6 +22,7 @@ import { ProductService } from './services/product.service';
 
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -38,8 +39,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireDatabaseModule,
     FormsModule,
     ToastrModule.forRoot(),
+    AuthModule
   ],
-  providers: [ProductService],
+  providers: [
+    ProductService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

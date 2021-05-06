@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from './auth/models/user';
+import { AuthService } from './auth/services/auth.service';
 import { Product } from './models/product';
 import { ProductService } from './services/product.service';
 
@@ -11,10 +13,21 @@ import { ProductService } from './services/product.service';
 export class AppComponent {
   title = 'angular-crud-firebase';
   selectedProduct$: Observable<Product>;
+  user$: Observable<User>;
 
   constructor(
-    public productService: ProductService
+    private productService: ProductService,
+    private authService: AuthService
   ) {
-    this.selectedProduct$ = productService.productSelected$;
+    this.selectedProduct$ = this.productService.productSelected$;
+    this.user$ = this.authService.user$;    
+  }
+
+  async logOut(){
+    try{
+      this.authService.signOut();
+    }catch(error){
+      console.error('#sign-in logOut', error);
+    }
   }
 }
