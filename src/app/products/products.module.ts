@@ -9,6 +9,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductService } from './services/product.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ReqresModule } from 'reqresnexti';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { ProductService } from './services/product.service';
     AngularFireDatabaseModule,
     FormsModule,
     ToastrModule.forRoot(),
+    HttpClientModule,
+    ReqresModule
   ],
   providers: [
     ProductService

@@ -11,6 +11,7 @@ import { Product } from '../../models/product';
   styleUrls: [],
 })
 export class ProductComponent implements OnInit {
+  product: Product = new Product();
 
   constructor(
     public productService: ProductService,
@@ -27,17 +28,19 @@ export class ProductComponent implements OnInit {
     if(product.name && product.price){
       const key = this.productService.getActualProduct().$key;
       
-      if(key){
-        this.productService.updateProduct({$key: key, ...productForm.value});
+      if(!key){
+        this.productService.insertProduct(productForm.value).subscribe(data => {
+          this.resetForm(productForm);
+          this.toastr.success('Saved!');
+        });
       }else{
-        this.productService.insertProduct(productForm.value);
+        this.productService.updateProduct({$key: key, ...productForm.value});
       }
   
-      this.resetForm(productForm);
-      this.toastr.success('Saved!');
     }else{
       this.toastr.error('Empty values...');
     }
+
   }
 
   resetForm(productForm: NgForm) {

@@ -1,5 +1,6 @@
 export class Product {
-    $key?: string;
-    name: string;
-    price: number;
+	$key?: string;
+  _id?: string;
+	name: string;
+	price: number;
 }

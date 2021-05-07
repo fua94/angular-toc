@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
-import { ProductStore } from '../../state/products.store';
 
 @Component({
   selector: 'app-product-list',
@@ -9,24 +8,18 @@ import { ProductStore } from '../../state/products.store';
   styleUrls: [],
 })
 export class ProductListComponent implements OnInit {
-  productList: Product[];
-
   constructor(
-    private productService: ProductService,
-    private store: ProductStore
+    public productService: ProductService
   ) {}
 
   ngOnInit(): void {
-    this.productService.getProducts()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.productList = [];
-        item.forEach(element => {
-          const x = element.payload.toJSON();
-          x['$key'] = element.key;
-          this.productList.push(x as Product);
-        });
+    this.productService.getProducts().subscribe(data => {
+      this.productService.productList = [];
+      data.rows.forEach((element: Product) => {
+        element['$key'] = element._id;
+        this.productService.productList.push(element as Product);
       });
+    });    
   }
 
   onEdit(product: Product){

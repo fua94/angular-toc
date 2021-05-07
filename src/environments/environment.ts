@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: "angular-crud-firebase-37b54.appspot.com",
     messagingSenderId: "1057717863820",
     appId: "1:1057717863820:web:d5b15d51480453f48d82a9"
-  }
+  },
+  api: 'http://52.224.12.214:3000/api'
 };
 
 /*

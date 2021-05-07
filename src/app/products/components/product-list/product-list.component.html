@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of productList">
+      <tr *ngFor="let product of productService.productList">
         <td>{{ product.name }}</td>
         <td>{{ product.price }}</td>
         <td>

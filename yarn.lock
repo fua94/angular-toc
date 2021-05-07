@@ -10467,6 +10467,13 @@ repeat-string@^1.6.1:
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
 
+reqresnexti@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/reqresnexti/-/reqresnexti-0.0.4.tgz#125e5aa9012eff8ed1432ef96183dde09aa3f334"
+  integrity sha512-rpCfDW5g5+lMkI6oc7GFnLfmDqsoXMvTeG9Kwb/36te7QDyi/O3MAEypo8Vz6I6r6bP21zB0ZG7+2P6XrtMu5Q==
+  dependencies:
+    tslib "^2.0.0"
+
 request-progress@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/request-progress/-/request-progress-3.0.0.tgz#4ca754081c7fec63f505e4faa825aa06cd669dbe"

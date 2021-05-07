@@ -7,7 +7,7 @@
                   class="form-control"
                   name="name"
                   #name="ngModel"
-                  [(ngModel)]="productService.getActualProduct().name"
+                  [(ngModel)]="product.name"
                   placeholder="Name"
               />
               <input 
@@ -15,7 +15,7 @@
                   class="form-control mt-2"
                   name="price"
                   #price="ngModel"
-                  [(ngModel)]="productService.getActualProduct().price"
+                  [(ngModel)]="product.price"
                   placeholder="Price"
               />
               <div class="mt-2">
