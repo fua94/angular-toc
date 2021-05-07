@@ -5,12 +5,14 @@ import { Product } from '../models/product';
 export interface ProductState extends EntityState<Product> {
   productSelected: Product;
   dataLoaded: boolean;
+  page: number;
 }
 
 export function createInitialState(): ProductState {
   return {
     productSelected: new Product(),
-    dataLoaded: false
+    dataLoaded: false,
+    page: 1,
   };
 }
 

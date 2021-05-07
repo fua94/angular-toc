@@ -30,7 +30,9 @@
     "@datorama/akita-ng-entity-service": "^6.0.0",
     "@datorama/akita-ng-router-store": "^6.0.0",
     "firebase": "^7.0 || ^8.0",
+    "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^13.2.1",
+    "productsnexti": "0.0.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

@@ -11,31 +11,46 @@ import { Product } from '../../models/product';
   styleUrls: [],
 })
 export class ProductComponent implements OnInit {
-
   constructor(
     public productService: ProductService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.productService.getProducts();
+    this.productService.getProducts(1);
   }
 
   onSubmit(productForm: NgForm) {
     const product = productForm.value;
 
-    if(product.name && product.price){
-      const key = this.productService.getActualProduct().$key;
-      
-      if(key){
-        this.productService.updateProduct({$key: key, ...productForm.value});
-      }else{
-        this.productService.insertProduct(productForm.value);
+    if (product.name && product.price) {
+      const key = this.productService.getActualProduct()._id;
+
+      if (key) {
+        this.productService
+          .updateProduct({ _id: key, ...productForm.value })
+          .subscribe(
+            () => {
+              this.resetForm(productForm);
+              this.toastr.success('Saved!');
+            },
+            (response) => {
+              this.toastr.error('Error: ' + response);
+            }
+          );
+      } else {
+        this.productService.insertProduct(productForm.value).subscribe(
+          () => {
+            this.productService.getProducts(1);
+            this.resetForm(productForm);
+            this.toastr.success('Saved!');
+          },
+          (response) => {
+            this.toastr.error('Error: ' + response);
+          }
+        );
       }
-  
-      this.resetForm(productForm);
-      this.toastr.success('Saved!');
-    }else{
+    } else {
       this.toastr.error('Empty values...');
     }
   }
