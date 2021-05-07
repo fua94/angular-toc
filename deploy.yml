@@ -1,14 +1,18 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-poc-angular
+  name: poc-angular-deploy
+  labels:
+    name: poc-angular-deploy
+    app: microservice
 spec:
   replicas: 1
   template:
     metadata:
+      name: poc-angular-pod
       labels:
         app: poc-angular-front
-        type: microservice 
+        type: microservice
     spec:
       containers:
         - name: deploment-container-name
@@ -22,10 +26,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: angular-poc-service
   labels:
     name: angular-poc-service
     app: microservice
-  name: angular-poc-service
 spec:
   type: LoadBalancer
   ports:
