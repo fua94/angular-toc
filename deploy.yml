@@ -6,6 +6,10 @@ metadata:
     name: poc-angular-deploy
     app: microservice
 spec:
+  selector:
+    matchLabels:
+      app: poc-angular-front
+      type: microservice
   replicas: 1
   template:
     metadata:
