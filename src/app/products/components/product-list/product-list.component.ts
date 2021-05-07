@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 
@@ -9,14 +10,14 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductListComponent implements OnInit {
   constructor(
-    public productService: ProductService
+    public productService: ProductService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data => {
       this.productService.productList = [];
       data.rows.forEach((element: Product) => {
-        element['$key'] = element._id;
         this.productService.productList.push(element as Product);
       });
     });    
@@ -28,7 +29,9 @@ export class ProductListComponent implements OnInit {
 
   onDelete(product: Product) {
     if(confirm('Borrar?')){
-      this.productService.deleteProduct(product);
+      this.productService.deleteProduct(product).subscribe(data => {
+        this.toastr.success('Removed!');
+      });
       this.productService.setActualProduct(new Product());
     }
   }
