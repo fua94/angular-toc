@@ -7,7 +7,7 @@ spec:
   template:
     metadata:
       labels:
-        label-key : label-value  
+        label-key : k989765869  
     spec:
       containers:
         - name: deploment-container-name
@@ -31,4 +31,4 @@ spec:
     port: 80
     protocol: TCP
   selector:
-    deployment-label-key: deployment-label-value
+    deployment-label-key: k989765869
