@@ -7,7 +7,8 @@ spec:
   template:
     metadata:
       labels:
-        label-key : k989765869  
+        app: poc-angular-front
+        type: microservice 
     spec:
       containers:
         - name: deploment-container-name
@@ -22,8 +23,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service-label-key: service-poc-angular
-  name: service-name-loadbalancer
+    name: angular-poc-service
+    app: microservice
+  name: angular-poc-service
 spec:
   type: LoadBalancer
   ports:
@@ -31,4 +33,5 @@ spec:
     port: 80
     protocol: TCP
   selector:
-    deployment-label-key: k989765869
+    app: poc-angular-front
+    type: microservice 
