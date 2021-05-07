@@ -24,11 +24,11 @@ export class ProductService {
     this.productSelected$ = this.productQuery.getProductSelected$;
   }
 
-  setActualProduct(product: Product){
+  setActualProduct(product: Product) {
     this.productStore.update({productSelected: product});
   }
 
-  getActualProduct(): Product{
+  getActualProduct(): Product {
     return this.productQuery.getValue().productSelected;
   }
 
@@ -47,13 +47,16 @@ export class ProductService {
   }
 
   updateProduct(product: Product) {
-    // this.productList.update(product.$key, {
-    //   name: product.name,
-    //   price: product.price,
-    // });
+    const index = this.productList.findIndex((p: Product) => p._id === product._id);
+    this.productList[index] = Object.assign({}, product);
+
+    return this.http.put(`${apiRoute}/${product._id}`, product);
   }
 
   deleteProduct(product: Product) {
-    // this.productList.remove(product.$key);
+    const index = this.productList.findIndex((p: Product) => p._id === product._id);
+    this.productList.splice(index, 1);
+
+    return this.http.delete(`${apiRoute}/${product._id}`);
   }
 }

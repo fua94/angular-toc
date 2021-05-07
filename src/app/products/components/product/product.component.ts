@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -20,23 +21,26 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProducts();
+    this.productService.productSelected$.subscribe(product => this.product = product);
   }
 
   onSubmit(productForm: NgForm) {
     const product = productForm.value;
 
     if(product.name && product.price){
-      const key = this.productService.getActualProduct().$key;
+      const id = this.productService.getActualProduct()._id;
+      let method: Observable<any>;
       
-      if(!key){
-        this.productService.insertProduct(productForm.value).subscribe(data => {
-          this.resetForm(productForm);
-          this.toastr.success('Saved!');
-        });
+      if(!id){
+        method = this.productService.insertProduct(productForm.value);
       }else{
-        this.productService.updateProduct({$key: key, ...productForm.value});
+        method = this.productService.updateProduct({_id: id, ...productForm.value});
       }
-  
+
+      method.subscribe(data => {
+        this.resetForm(productForm);
+        this.toastr.success('Saved!');
+      });
     }else{
       this.toastr.error('Empty values...');
     }
