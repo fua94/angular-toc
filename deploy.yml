@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: deploment-container-name
-          image: inyee/spa-demo:v1
+          image: luaso13/poc-front:latest
           imagePullPolicy: Always
           ports:
           - containerPort: 80
