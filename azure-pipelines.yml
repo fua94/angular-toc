@@ -1,0 +1,18 @@
+trigger:
+- '*'
+  
+variables:
+  repositoryImageName: 'planMarket30218/PlanMarket-POC/util-template-angular'
+  nodeVersion: '10.x'
+  angularCliVersion: '@angular/cli@1.7.4'
+  dockerVersion: '17.09.0-ce'
+
+resources:
+ repositories:
+   - repository: AngularTemplate
+     type: git
+     name: PlanMarket-POC/util-template-angular
+     ref: refs/heads/master
+
+extends:
+  template: start.yml@AngularTemplate
