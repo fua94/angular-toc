@@ -25,7 +25,7 @@ export class ProductService {
   }
 
   setActualProduct(product: Product) {
-    this.productStore.update({productSelected: product});
+    this.productStore.update({ productSelected: product });
   }
 
   getActualProduct(): Product {
@@ -39,7 +39,7 @@ export class ProductService {
   insertProduct(product: Product): Observable<any> {
     const actualProduct: Product = {
       name: product.name,
-      price: Number(product.price)
+      price: Number(product.price),
     };
 
     this.productList.push(actualProduct);
@@ -47,14 +47,18 @@ export class ProductService {
   }
 
   updateProduct(product: Product) {
-    const index = this.productList.findIndex((p: Product) => p._id === product._id);
+    const index = this.productList.findIndex(
+      (p: Product) => p._id === product._id
+    );
     this.productList[index] = Object.assign({}, product);
 
     return this.http.put(`${apiRoute}/${product._id}`, product);
   }
 
   deleteProduct(product: Product) {
-    const index = this.productList.findIndex((p: Product) => p._id === product._id);
+    const index = this.productList.findIndex(
+      (p: Product) => p._id === product._id
+    );
     this.productList.splice(index, 1);
 
     return this.http.delete(`${apiRoute}/${product._id}`);
